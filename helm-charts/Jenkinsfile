@@ -60,6 +60,7 @@ pipeline {
 
                         dir("chart-repo") {
 			    // Add and commit the changes
+			    sh "git checkout gh-pages"
 		 	    sh "git add --all"
 			    sh "git commit -m 'pushing charts from branch ${env.BRANCH_NAME}'"
 			    withCredentials([usernameColonPassword(credentialsId: 'github-auth', variable: 'USERPASS')]) {
@@ -67,7 +68,7 @@ pipeline {
 
 				    // Inject GitHub auth and push to the master branch, where the charts are being served
 				    def authRepo = env.GITHUB_PAGES_REPO_URL.replace("://", "://${USERPASS}@")
-				    sh "git push ${authRepo} master"
+				    sh "git push ${authRepo} gh-pages"
 			        }
 			    }
                         }
