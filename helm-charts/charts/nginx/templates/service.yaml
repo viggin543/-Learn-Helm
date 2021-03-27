@@ -3,7 +3,9 @@ kind: Service
 metadata:
   name: {{ include "nginx.fullname" . }}
   labels:
+    banana: "da"
     {{- include "nginx.labels" . | nindent 4 }}
+
 spec:
   type: {{ .Values.service.type }}
   ports:
